@@ -16,7 +16,7 @@ function productMapper(product) {
 // router.get('/products', productsBySubcategory, productList);
 
 module.exports.productsBySubcategory = async function productsBySubcategory(ctx, next) {
-  const subcategoryId = ctx.request.body.subcategory;
+  const subcategoryId = ctx.query.subcategory;
   ctx.subcategoryId = subcategoryId;
 
   if (!mongoose.Types.ObjectId.isValid(subcategoryId)) {
