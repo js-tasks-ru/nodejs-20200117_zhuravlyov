@@ -14,6 +14,7 @@ function productMapper(product) {
 
 module.exports.productsByQuery = async function productsByQuery(ctx, next) {
   const query = ctx.query.query;
+
   let products = await Product.find({$text: {$search: query}});
   products = products.map(productMapper);
 
