@@ -46,7 +46,7 @@ describe('8-module-1-task', () => {
 
       expect(response.body, 'ответ сервера содержит поле status').to.eql({status: 'ok'});
       expect(get(envelope, 'to[0]'), 'письмо отправлено на указанный email').to
-          .equal(newUserData.email);
+        .equal(newUserData.email);
 
       const newUser = await User.findOne({email: newUserData.email});
 
@@ -102,33 +102,33 @@ describe('8-module-1-task', () => {
     });
 
     it('при запросе /confirm verificationToken в базе удаляется, токен есть в ответе сервера',
-        async () => {
-          const newUserData = {
-            email: 'user@mail.com',
-            displayName: 'user',
-            password: '123123',
-            verificationToken: 'token',
-          };
+      async () => {
+        const newUserData = {
+          email: 'user@mail.com',
+          displayName: 'user',
+          password: '123123',
+          verificationToken: 'token',
+        };
 
-          const u = new User(newUserData);
-          await u.setPassword(newUserData.password);
-          await u.save();
+        const u = new User(newUserData);
+        await u.setPassword(newUserData.password);
+        await u.save();
 
-          const response = await request({
-            method: 'post',
-            uri: 'http://localhost:3000/api/confirm',
-            body: {
-              verificationToken: newUserData.verificationToken,
-            },
-          });
-
-          const user = await User.findOne({email: newUserData.email});
-
-          expect(user, 'verificationToken должен быть undefined').to.have
-              .property('verificationToken', undefined);
-
-          expect(response.body, 'с сервера должен вернуться token').to.has.property('token');
+        const response = await request({
+          method: 'post',
+          uri: 'http://localhost:3000/api/confirm',
+          body: {
+            verificationToken: newUserData.verificationToken,
+          },
         });
+
+        const user = await User.findOne({email: newUserData.email});
+
+        expect(user, 'verificationToken должен быть undefined').to.have
+          .property('verificationToken', undefined);
+
+        expect(response.body, 'с сервера должен вернуться token').to.has.property('token');
+      });
 
     it('при запросе /confirm с неправильным токеном - ошибка', async () => {
       const response = await request({
@@ -140,7 +140,7 @@ describe('8-module-1-task', () => {
       });
 
       expect(response.body, 'с сервера должна вернуться ошибка').to
-          .eql({error: 'Ссылка подтверждения недействительна или устарела'});
+        .eql({error: 'Ссылка подтверждения недействительна или устарела'});
     });
   });
 });
