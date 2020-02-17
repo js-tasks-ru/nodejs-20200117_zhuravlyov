@@ -449,7 +449,7 @@ describe('8-module-2-task', () => {
 
     it('вернуть ошибку со статусом 401 если пользователь не авторизован', async () => {
       const {statusCode} = await request({
-        method: 'get',
+        method: 'post',
         url: serverURL,
       });
 
